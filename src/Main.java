@@ -1,14 +1,22 @@
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 import Enum.Type;
-import Enum.Periodicity;
+
 
 
 public class Main {
     public static void main(String[] args) {
+        //Task task = new Task("dd", "dd", Type.PERSONAL);
+        //task.getLocalDateTime();
         startAddTask();
     }
 
     private static void startAddTask() {
+
         try (Scanner scanner = new Scanner(System.in)) {
             label:
             while (true) {
@@ -43,19 +51,46 @@ public class Main {
         System.out.print("Введите описание задачи: ");
         String taskDescription = scanner.next();
         Type taskType = selectTypeTask(scanner);
-        Periodicity taskPeriodicity = selectPeriodicityTask(scanner);
-        Service.checkData(taskName, taskDescription, taskType, taskPeriodicity);
-        Service.createTask(taskName, taskDescription, taskType, taskPeriodicity);
+        printPeriodicityMenu();
+        //Periodicity taskPeriodicity = selectPeriodicityTask(scanner);
+        createTask(taskName, taskDescription, taskType, scanner);
+        //Service.checkData(taskName, taskDescription, taskType, taskPeriodicity);
+        //Service.createTask(taskName, taskDescription, taskType, taskPeriodicity);
         System.out.println("Задача " + taskName + " создана");
     }
 
+    private static void createTask(String taskName, String taskDescription, Type taskType, Scanner scanner) {
+        switch (scanner.nextInt()) {
+            case 1:
+                Service.addTask(new Task(taskName, taskDescription, taskType));
+                break;
+            case 2:
+                Service.addTask(new DailyTask(taskName, taskDescription, taskType));
+                break;
+            case 3:
+                Service.addTask(new WeeklyTask(taskName, taskDescription, taskType));
+                break;
+            case 4:
+                Service.addTask(new MonthTask(taskName, taskDescription, taskType));
+                break;
+            case 5:
+                Service.addTask(new YearTask(taskName, taskDescription, taskType));
+                break;
+            default:
+                throw new RuntimeException("Нет номера в списке меню");
+        }
+    }
+
+
     private static void getTaskForDay(Scanner scanner) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         if (Service.getTaskList().size() == 0) {
             System.out.println("Задачи отсутствуют");
         }else {
-            System.out.println("Введите дату(в формате dd-MM-yyyy):");
-            String date =  scanner.next();
-            Service.showTask(date);
+            System.out.println("Введите дату(в формате dd.MM.yyyy):");
+            LocalDate date = LocalDate.from(LocalDate.parse(scanner.next(), formatter).atStartOfDay());
+            Set<Task> taskListOfDay = new HashSet<>(Service.checkTask(date));
+            System.out.println(taskListOfDay);
         }
     }
 
@@ -73,20 +108,12 @@ public class Main {
         Service.getTaskListForRemove();
             if (scanner.hasNextInt()) {
                 int menuTaskId = scanner.nextInt();
-                if (menuTaskId > Service.getTaskSizeList() || menuTaskId < 1) {
-                    System.out.println("неверно выбрана задача");
-                }else {
-                    return menuTaskId;
-                }
-            }else {
-                scanner.next();
-                System.out.println("Выберите пункт меню из списка!");
+                return menuTaskId;
             }
-
         return 0;
     }
 
-    private static Periodicity selectPeriodicityTask(Scanner scanner) {
+    /*private static Periodicity selectPeriodicityTask(Scanner scanner) {
         Periodicity periodicity = null;
         System.out.print("Как часто повторять задачу: ");
         printPeriodicityMenu();
@@ -115,7 +142,7 @@ public class Main {
         }
         return periodicity;
 
-    }
+    }*/
 
     private static void printPeriodicityMenu() {
         System.out.println(

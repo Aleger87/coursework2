@@ -1,32 +1,37 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import Enum.Type;
-import Enum.Periodicity;
 
 
-public class Task {
+public class Task implements Repeatability {
     private static int counter=1;
     private int id;
     private final String heading;
     private final String description;
     private final Type type;
-    private  Periodicity periodicity;
+   // private  Periodicity periodicity;
 
-    private LocalDateTime localDateTime;
+    private LocalDate localDate;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-
-    public Task(String heading, String description, Type type, Periodicity periodicity) {
+    public Task(String heading, String description, Type type) {
         this.heading = heading;
         this.description = description;
         this.type = type;
-        this.periodicity = periodicity;
+        //this.periodicity = periodicity;
         id = counter;
+        localDate = LocalDate.now();
         counter++;
-        localDateTime = LocalDateTime.now();
     }
 
 
+
+    //Однократная задача, бессрочная, будет висеть в списке задач до момента ее выполнения (удаления)
+    @Override
+    public boolean isAvailable(LocalDate inputDate) {
+        return true;
+    }
 
     @Override
     public String toString() {
@@ -36,8 +41,7 @@ public class Task {
                 ", \nЗаголовок = " + heading + '\'' +
                 ", \nОписание = " + description + '\'' +
                 ", \nТип = " + type.getType() +
-                ", \nпереодичность = " + periodicity.getPeriodicity() +
-                ", \nдата/время создания = " + localDateTime +
+                ", \nдата создания = " + localDate +
                 ", \n-------------------------------------------------------";
     }
 
@@ -66,17 +70,16 @@ public class Task {
         return type;
     }
 
-    public Periodicity getPeriodicity() {
+  /*  public Periodicity getPeriodicity() {
         return periodicity;
-    }
+    }*/
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
     public int getId() {
         return id;
     }
-
 
 }
