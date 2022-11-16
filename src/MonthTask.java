@@ -2,6 +2,7 @@ import Enum.Type;
 import java.time.LocalDate;
 
 public class MonthTask extends Task {
+
     public MonthTask(String heading, String description, Type type) {
         super(heading, description, type);
     }

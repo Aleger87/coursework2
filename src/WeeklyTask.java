@@ -1,11 +1,7 @@
 import Enum.Type;
-
 import java.time.LocalDate;
 
-
 public class WeeklyTask extends Task {
-    //private LocalDateTime localDateTime;
-
 
     public WeeklyTask(String heading, String description, Type type) {
         super(heading, description, type);

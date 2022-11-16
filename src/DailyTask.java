@@ -1,12 +1,7 @@
 import Enum.Type;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 
 public class DailyTask extends Task {
-
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public DailyTask(String heading, String description, Type type) {
         super(heading, description, type);

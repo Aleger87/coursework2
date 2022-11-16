@@ -1,5 +1,4 @@
 import Enum.Type;
-
 import java.time.LocalDate;
 
 public class YearTask extends Task {

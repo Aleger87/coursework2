@@ -10,8 +10,6 @@ import Enum.Type;
 
 public class Main {
     public static void main(String[] args) {
-        //Task task = new Task("dd", "dd", Type.PERSONAL);
-        //task.getLocalDateTime();
         startAddTask();
     }
 
@@ -113,36 +111,6 @@ public class Main {
         return 0;
     }
 
-    /*private static Periodicity selectPeriodicityTask(Scanner scanner) {
-        Periodicity periodicity = null;
-        System.out.print("Как часто повторять задачу: ");
-        printPeriodicityMenu();
-        if (scanner.hasNextInt()) {
-            int menuType = scanner.nextInt();
-            switch (menuType) {
-                case 1:
-                    periodicity = periodicity.ONE_TIME;
-                    break;
-                case 2:
-                    periodicity = periodicity.DAILY;
-                    break;
-                case 3:
-                    periodicity = periodicity.WEEKLY;
-                    break;
-                case 4:
-                    periodicity = periodicity.MONTHLY;
-                    break;
-                case 5:
-                    periodicity = periodicity.ANNUAL;
-                    break;
-            }
-        }else {
-            scanner.next();
-            System.out.println("Выберите пункт меню из списка!");
-        }
-        return periodicity;
-
-    }*/
 
     private static void printPeriodicityMenu() {
         System.out.println(

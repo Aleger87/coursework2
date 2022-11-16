@@ -12,22 +12,6 @@ public class Service {
 
     private static Map<Integer, Task> taskList = new HashMap<>();
 
-  /*  public static boolean checkData (String heading, String description, Type type, Periodicity periodicity) {
-        List<String> list = List.of(heading, description, String.valueOf(type), String.valueOf(periodicity));
-        for (var data : list) {
-            if (data == "null" || data.isBlank() || data.isEmpty() ) {
-                throw new RuntimeException("Не все данные заполнены верно");
-            }
-        }
-        return true;
-    }*/
-
-    /*public static void createTask(String taskName, String taskDescription, Type taskType, Periodicity taskPeriodicity) {
-        Task task = new Task(taskName,taskDescription,taskType,taskPeriodicity);
-        taskList.put(task.getId(), task);
-
-    }*/
-
     public static void addTask(Task task) {
         taskList.put(task.getId(), task);
     }
@@ -54,8 +38,8 @@ public class Service {
         System.out.println("Задача "+id+" удалена!");
     }
 
-    public static Set<Task> checkTask(LocalDate date) {
-        Set<Task> tasksOfDay = new HashSet<>();
+    public static List<Task> checkTask(LocalDate date) {
+        List<Task> tasksOfDay = new ArrayList<>();
         for (int t: taskList.keySet()) {
             if (taskList.get(t).isAvailable(date)) {
                 tasksOfDay.add(taskList.get(t));
@@ -65,36 +49,4 @@ public class Service {
         return tasksOfDay;
     }
 
-
-    /*public static void showTask(String date) {
-        Set<Task> taskOfDay = new HashSet<>();
-        for (int i : Service.getTaskList().keySet()) {
-            switch (Service.getTaskList().get(i).getPeriodicity()) {
-                case ONE_TIME:
-                    taskOfDay.add(Service.getTaskList().get(i));
-
-                case DAILY:
-                    if (date.equals(Service.getTaskList().get(i).getLocalDateTime().plusDays(1).format(formatter))) {
-                        taskOfDay.add(Service.getTaskList().get(i));
-                    }
-
-                case WEEKLY:
-                    if (date.equals(Service.getTaskList().get(i).getLocalDateTime().plusWeeks(1).format(formatter))) {
-                        taskOfDay.add(Service.getTaskList().get(i));
-                    }
-
-                case MONTHLY:
-                    if (date.equals(Service.getTaskList().get(i).getLocalDateTime().plusMonths(1).format(formatter))) {
-                        taskOfDay.add(Service.getTaskList().get(i));
-                    }
-
-                case ANNUAL:
-                    if (date.equals(Service.getTaskList().get(i).getLocalDateTime().plusYears(1).format(formatter))) {
-                        taskOfDay.add(Service.getTaskList().get(i));
-                    }
-
-            }
-        }
-        System.out.println(taskOfDay);
-    }*/
 }

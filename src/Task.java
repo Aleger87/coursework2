@@ -10,7 +10,6 @@ public class Task implements Repeatability {
     private final String heading;
     private final String description;
     private final Type type;
-   // private  Periodicity periodicity;
 
     private LocalDate localDate;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -19,7 +18,6 @@ public class Task implements Repeatability {
         this.heading = heading;
         this.description = description;
         this.type = type;
-        //this.periodicity = periodicity;
         id = counter;
         localDate = LocalDate.now();
         counter++;
@@ -70,9 +68,6 @@ public class Task implements Repeatability {
         return type;
     }
 
-  /*  public Periodicity getPeriodicity() {
-        return periodicity;
-    }*/
 
     public LocalDate getLocalDate() {
         return localDate;
